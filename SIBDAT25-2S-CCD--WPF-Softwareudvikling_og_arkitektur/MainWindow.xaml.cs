@@ -133,7 +133,8 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
 
             if (temperature <= 22)
             {
-                currentTemperatureText.Foreground = Brushes.Gold;
+                // Use same orange as the light icon for the mid temperature range
+                currentTemperatureText.Foreground = Brushes.Orange;
                 return;
             }
 

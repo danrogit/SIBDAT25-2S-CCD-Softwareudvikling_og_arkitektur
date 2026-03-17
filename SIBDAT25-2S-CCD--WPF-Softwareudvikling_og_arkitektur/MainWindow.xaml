@@ -5,44 +5,246 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur"
         mc:Ignorable="d"
-        Title="Smart Home Manager" Height="420" Width="500"
-        Background="White"
-        Foreground="Black">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        Title="Smart Home Manager"
+        Height="600"
+        Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F7FB"
+        Foreground="#1F2937">
 
-        <TextBlock Text="Smart Home Manager"
-                   FontSize="24"
-                   FontWeight="Bold"
-                   Margin="0,0,0,16"/>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3B82F6"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="4"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
-            <Button Content="Tænd" Width="100" Margin="0,0,8,0" Click="TurnOn_Click"/>
-            <Button Content="Sluk" Width="100" Margin="0,0,8,0" Click="TurnOff_Click"/>
-            <Button x:Name="MovieModeButton" Content="Filmtilstand: Fra" Width="140" Click="MovieMode_Click"/>
-        </StackPanel>
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#6B7280"/>
+        </Style>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
-            <TextBlock VerticalAlignment="Center" Text="Temperatur:" Margin="0,0,8,0"/>
-            <TextBox x:Name="TemperatureInput" Width="80" Margin="0,0,8,0" VerticalContentAlignment="Center"/>
-            <Button Content="Sæt" Width="80" Click="SetTemperature_Click"/>
-            <TextBlock VerticalAlignment="Center" Text="Nuværende:" Margin="12,0,6,0"/>
-            <TextBlock x:Name="CurrentTemperatureText" VerticalAlignment="Center" Text="-- °C" FontWeight="SemiBold"/>
-        </StackPanel>
+        <Style x:Key="AccentButtonStyle" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="#8B5CF6"/>
+        </Style>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,12">
-            <TextBlock Text="&#xE793;" FontFamily="Segoe MDL2 Assets" FontSize="24" x:Name="LightIcon" Foreground="Gray"/>
-            <TextBlock Text=" Lys" VerticalAlignment="Center" Margin="4,0,16,0"/>
-            <TextBlock Text="&#xE7F4;" FontFamily="Segoe MDL2 Assets" FontSize="24" x:Name="MovieIcon" Foreground="Gray"/>
-            <TextBlock Text=" Filmtilstand" VerticalAlignment="Center" Margin="4,0,0,0"/>
-        </StackPanel>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <ListBox x:Name="StatusList" Grid.Row="4" BorderBrush="Black" BorderThickness="1"/>
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Border Background="White"
+                CornerRadius="18"
+                Padding="24"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="360"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Smart Home Manager"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Foreground="#111827"/>
+                    <TextBlock Text="Styr lys, temperatur og filmtilstand fra ét sted"
+                               FontSize="14"
+                               Foreground="#6B7280"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <!-- Buttons -->
+                <Border Grid.Row="2"
+                        Background="#F9FAFB"
+                        CornerRadius="14"
+                        Padding="16"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Tænd"
+                                Width="110"
+                                Click="TurnOn_Click"/>
+
+                        <Button Content="Sluk"
+                                Width="110"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="TurnOff_Click"/>
+
+                        <Button x:Name="MovieModeButton"
+                                Content="Filmtilstand: Fra"
+                                Width="160"
+                                Style="{StaticResource AccentButtonStyle}"
+                                Click="MovieMode_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Temperature -->
+                <Border Grid.Row="4"
+                        Background="#F9FAFB"
+                        CornerRadius="14"
+                        Padding="16"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Text="Temperatur"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,12,0"/>
+
+                        <TextBox x:Name="TemperatureInput"
+                                 Grid.Column="1"
+                                 Height="36"
+                                 VerticalContentAlignment="Center"
+                                 Margin="0,0,12,0"/>
+
+                        <Button Grid.Column="2"
+                                Content="Sæt"
+                                Width="90"
+                                Margin="0,0,16,0"
+                                Click="SetTemperature_Click"/>
+
+                        <StackPanel Grid.Column="3"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="Nuværende:"
+                                       Foreground="#6B7280"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,8,0"/>
+                            <Border Background="#EEF2FF"
+                                    CornerRadius="10"
+                                    Padding="10,6">
+                                <TextBlock x:Name="CurrentTemperatureText"
+                                           Text="-- °C"
+                                           FontWeight="Bold"
+                                           Foreground="#4338CA"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Status icons -->
+                <Border Grid.Row="6"
+                        Background="#F9FAFB"
+                        CornerRadius="14"
+                        Padding="16"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,24,0">
+                            <TextBlock Text="&#xE793;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="24"
+                                       x:Name="LightIcon"
+                                       Foreground="Gray"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text=" Lys"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       Margin="6,0,0,0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7F4;"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       FontSize="24"
+                                       x:Name="MovieIcon"
+                                       Foreground="Gray"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text=" Filmtilstand"
+                                       FontSize="14"
+                                       VerticalAlignment="Center"
+                                       Margin="6,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Activity log (moved to right column) -->
+                <Border Grid.Row="0" Grid.RowSpan="9" Grid.Column="1"
+                        Background="#F9FAFB"
+                        CornerRadius="14"
+                        Padding="12"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Aktivitetslog"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#111827"/>
+
+                        <ListBox x:Name="StatusList"
+                                 Grid.Row="2"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
