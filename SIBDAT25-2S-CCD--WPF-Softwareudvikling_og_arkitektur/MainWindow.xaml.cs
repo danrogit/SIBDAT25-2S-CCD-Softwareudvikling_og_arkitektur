@@ -30,7 +30,7 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
             _movieModeCommand = new MovieModeCommand(new List<ICommand>
             {
                 new MovieModeAdapter(new LegacyTvSystem(AddStatus)),
-                new TurnOffCommand(_light),
+                new LightOffCommand(_light),
                 new SetTemperaturCommand(20, _thermostat)
             });
 
@@ -41,16 +41,10 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
             AddStatus("System klar.");
         }
 
-        private void TurnOn_Click(object sender, RoutedEventArgs e)
+        private void ToggleLight_Click(object sender, RoutedEventArgs e)
         {
-            _client.Control(new TurnOnCommand(_light));
-            _homeStateSubject.Notify(new HomeStateChangedEvent(HomeStateType.Light, isEnabled: true));
-        }
-
-        private void TurnOff_Click(object sender, RoutedEventArgs e)
-        {
-            _client.Control(new TurnOffCommand(_light));
-            _homeStateSubject.Notify(new HomeStateChangedEvent(HomeStateType.Light, isEnabled: false));
+            _client.Control(new ToggleLightCommand(_light));
+            _homeStateSubject.Notify(new HomeStateChangedEvent(HomeStateType.Light, isEnabled: _light.IsOn));
         }
 
         private void MovieMode_Click(object sender, RoutedEventArgs e)
