@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
 {
-    public class TurnOffCommand : ICommand
+    public class LightOffCommand : ICommand
     {
         private readonly Light _light;
 
-        public TurnOffCommand(Light light)
+        public LightOffCommand(Light light)
         {
             _light = light;
+        }
+
+        public void Execute()
+        {
+            _light.TurnOff();
+        }
+
+        public void TurnOn()
+        {
+            _light.TurnOn();
         }
 
         public void TurnOff()
         {
             _light.TurnOff();
         }
-
-        public void TurnOn() 
-        {
-            _light.TurnOn();
-        }
-
-        public void Execute()
-        {
-            TurnOff();
-        }
-
     }
 }

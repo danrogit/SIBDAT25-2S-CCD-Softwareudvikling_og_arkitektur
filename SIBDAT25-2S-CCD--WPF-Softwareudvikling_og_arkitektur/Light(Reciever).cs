@@ -25,5 +25,17 @@ namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
             IsOn = false;
             _statusLogger("Lys er slukket.");
         }
+
+        public void Toggle()
+        {
+            if (IsOn)
+            {
+                TurnOff();
+            }
+            else
+            {
+                TurnOn();
+            }
+        }
     }
 }

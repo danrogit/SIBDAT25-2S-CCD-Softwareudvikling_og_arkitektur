@@ -116,14 +116,10 @@
                         BorderBrush="#E5E7EB"
                         BorderThickness="1">
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Tænd"
+                        <Button x:Name="ToggleLightButton"
+                                Content="Tænd/Sluk"
                                 Width="110"
-                                Click="TurnOn_Click"/>
-
-                        <Button Content="Sluk"
-                                Width="110"
-                                Style="{StaticResource SecondaryButtonStyle}"
-                                Click="TurnOff_Click"/>
+                                Click="ToggleLight_Click"/>
 
                         <Button x:Name="MovieModeButton"
                                 Content="Filmtilstand: Fra"
