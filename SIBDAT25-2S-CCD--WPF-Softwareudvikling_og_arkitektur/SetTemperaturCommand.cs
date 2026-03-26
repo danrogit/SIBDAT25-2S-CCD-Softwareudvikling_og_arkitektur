@@ -4,6 +4,8 @@ using System.Text;
 
 namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
 {
+    // Kommando der sætter temperaturen via Thermostat.
+    // Viser også en simpel kalibreringsmetode til at sikre gyldigt interval.
     public class SetTemperaturCommand : ICommand
     {
         private readonly Thermostat _thermostat;
@@ -15,11 +17,13 @@ namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
             _thermostat = thermostat;
         }
 
+        // Execute anvender kalibreret værdi på Thermostat.
         public void Execute()
         {
             _thermostat.SetTemperature(Calibrate(_field));
         }
 
+        // Simpel kalibrering: begræns temperatur til intervallet [0,30].
         public int Calibrate(int temperatur)
         {
             if (temperatur < 0)
@@ -42,7 +46,7 @@ namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
 
         public void TurnOff()
         {
-
+            // Ingen handling ved TurnOff for temperaturkommando.
         }
 
     }
