@@ -7,6 +7,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <!-- Set application icon (relative to project file). Expected file: icon.ico -->
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Win32Icon>icon.ico</Win32Icon>
   </PropertyGroup>
+
+  <!-- Include the icon file in the project so it is available to the build/publish step. -->
+  <ItemGroup>
+    <None Include="icon.ico" />
+  </ItemGroup>
 
 </Project>
