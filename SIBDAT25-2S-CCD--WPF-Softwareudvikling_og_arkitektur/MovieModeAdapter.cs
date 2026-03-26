@@ -2,6 +2,7 @@ using System;
 
 namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
 {
+    // Adapter pattern: oversætter ILegacyTvSystem til ICommand interface.
     public interface ILegacyTvSystem
     {
         void EnableCinemaMode();

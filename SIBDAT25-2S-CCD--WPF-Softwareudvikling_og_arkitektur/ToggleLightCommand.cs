@@ -2,6 +2,7 @@ using System;
 
 namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
 {
+    // Simple command for at skifte et lys: tænd hvis slukket, sluk hvis tændt.
     public class ToggleLightCommand : ICommand
     {
         private readonly Light _light;
@@ -11,6 +12,7 @@ namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
             _light = light;
         }
 
+        // Når kommandoen udføres, toggles lysets state.
         public void Execute()
         {
             Toggle();
@@ -21,6 +23,7 @@ namespace SIBDAT_25_CCD_Softwareudvikling_og_arkitektur
             _light.Toggle();
         }
 
+        // Aux-metoder der følger ICommand contract.
         public void TurnOn()
         {
             _light.TurnOn();

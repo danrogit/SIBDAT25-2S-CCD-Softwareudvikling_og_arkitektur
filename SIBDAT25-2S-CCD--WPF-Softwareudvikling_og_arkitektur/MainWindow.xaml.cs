@@ -9,6 +9,8 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    // MainWindow er brugergrænsefladen. Den fungerer også som observer
+    // for HomeStateSubject så UI automatisk kan opdatere når enheder ændrer state.
     public partial class MainWindow : Window, IHomeStateObserver
     {
         private readonly Client _client;
@@ -38,9 +40,11 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
             _homeStateSubject.Subscribe(this);
             UpdateLightIconState();
             UpdateMovieIconState();
+            // Skriver en start-besked i aktivitetsloggen.
             AddStatus("System klar.");
         }
 
+        // Toggle-knap: Skifter lysstatus ved hjælp af ToggleLightCommand.
         private void ToggleLight_Click(object sender, RoutedEventArgs e)
         {
             _client.Control(new ToggleLightCommand(_light));
@@ -127,7 +131,6 @@ namespace SIBDAT25_2S_CCD__WPF_Softwareudvikling_og_arkitektur
 
             if (temperature <= 22)
             {
-                // Use same orange as the light icon for the mid temperature range
                 currentTemperatureText.Foreground = Brushes.Orange;
                 return;
             }
